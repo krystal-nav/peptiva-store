@@ -1,4 +1,6 @@
 import { Suspense } from "react"
+import { User, ShoppingCart } from "@medusajs/icons"
+import Image from "next/image"
 
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
@@ -11,42 +13,75 @@ export default async function Nav() {
 
   return (
     <div className="sticky top-0 inset-x-0 z-50 group">
-      <header className="relative h-16 mx-auto border-b duration-200 bg-white border-ui-border-base">
-        <nav className="content-container txt-xsmall-plus text-ui-fg-subtle flex items-center justify-between w-full h-full text-small-regular">
+      <header className="relative h-16 mx-auto border-b duration-200 bg-[#FAF8F5] border-gray-200 shadow-sm">
+        <nav className="content-container flex items-center justify-between w-full h-full">
+          {/* Left: Logo */}
           <div className="flex-1 basis-0 h-full flex items-center">
-            <div className="h-full">
+            <LocalizedClientLink
+              href="/"
+              className="flex items-center hover:opacity-80 transition-opacity duration-200"
+              data-testid="nav-logo-link"
+            >
+              <Image
+                src="/images/peptiva-logo.png"
+                alt="Peptiva"
+                width={338}
+                height={80}
+                className="h-10 w-auto"
+                priority
+              />
+            </LocalizedClientLink>
+            
+            {/* Mobile hamburger menu */}
+            <div className="ml-4 lg:hidden">
               <SideMenu regions={regions} />
             </div>
           </div>
 
-          <div className="flex items-center h-full">
+          {/* Center: Navigation Links (Desktop) */}
+          <div className="hidden lg:flex items-center gap-x-8 h-full">
             <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus hover:text-ui-fg-base uppercase"
+              href="/store"
+              className="text-[#1A2A40] hover:text-[#C67D4E] transition-colors duration-200 font-medium"
               data-testid="nav-store-link"
             >
-              Peptiva
+              All Peptides
+            </LocalizedClientLink>
+            <LocalizedClientLink
+              href="/about"
+              className="text-[#1A2A40] hover:text-[#C67D4E] transition-colors duration-200 font-medium"
+              data-testid="nav-about-link"
+            >
+              About
+            </LocalizedClientLink>
+            <LocalizedClientLink
+              href="/contact"
+              className="text-[#1A2A40] hover:text-[#C67D4E] transition-colors duration-200 font-medium"
+              data-testid="nav-contact-link"
+            >
+              Contact
             </LocalizedClientLink>
           </div>
 
-          <div className="flex items-center gap-x-6 h-full flex-1 basis-0 justify-end">
-            <div className="hidden small:flex items-center gap-x-6 h-full">
-              <LocalizedClientLink
-                className="hover:text-ui-fg-base"
-                href="/account"
-                data-testid="nav-account-link"
-              >
-                Account
-              </LocalizedClientLink>
-            </div>
+          {/* Right: Account and Cart Icons */}
+          <div className="flex items-center gap-x-4 h-full flex-1 basis-0 justify-end">
+            <LocalizedClientLink
+              className="flex items-center text-[#1A2A40] hover:text-[#C67D4E] transition-colors duration-200"
+              href="/account"
+              data-testid="nav-account-link"
+            >
+              <User />
+            </LocalizedClientLink>
+            
             <Suspense
               fallback={
                 <LocalizedClientLink
-                  className="hover:text-ui-fg-base flex gap-2"
+                  className="flex items-center text-[#1A2A40] hover:text-[#C67D4E] transition-colors duration-200"
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  Cart (0)
+                  <ShoppingCart />
+                  <span className="ml-1">(0)</span>
                 </LocalizedClientLink>
               }
             >

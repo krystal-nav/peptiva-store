@@ -10,10 +10,11 @@ import CountrySelect from "../country-select"
 import { HttpTypes } from "@medusajs/types"
 
 const SideMenuItems = {
-  Home: "/",
-  Store: "/store",
-  Account: "/account",
-  Cart: "/cart",
+  "All Peptides": "/store",
+  "About": "/about",
+  "Contact": "/contact",
+  "Account": "/account",
+  "Cart": "/cart",
 }
 
 const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
@@ -28,9 +29,13 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
               <div className="relative flex h-full">
                 <Popover.Button
                   data-testid="nav-menu-button"
-                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none hover:text-ui-fg-base"
+                  className="relative h-full flex items-center transition-all ease-out duration-200 focus:outline-none text-[#1A2A40] hover:text-[#C67D4E]"
                 >
-                  Menu
+                  <div className="flex flex-col space-y-1">
+                    <div className="w-6 h-0.5 bg-current"></div>
+                    <div className="w-6 h-0.5 bg-current"></div>
+                    <div className="w-6 h-0.5 bg-current"></div>
+                  </div>
                 </Popover.Button>
               </div>
 
@@ -55,10 +60,10 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                 <PopoverPanel className="flex flex-col absolute w-full pr-4 sm:pr-0 sm:w-1/3 2xl:w-1/4 sm:min-w-min h-[calc(100vh-1rem)] z-[51] inset-x-0 text-sm text-ui-fg-on-color m-2 backdrop-blur-2xl">
                   <div
                     data-testid="nav-menu-popup"
-                    className="flex flex-col h-full bg-[rgba(3,7,18,0.5)] rounded-rounded justify-between p-6"
+                    className="flex flex-col h-full bg-[#FAF8F5] rounded-rounded justify-between p-6 border border-gray-200"
                   >
                     <div className="flex justify-end" id="xmark">
-                      <button data-testid="close-menu-button" onClick={close}>
+                      <button data-testid="close-menu-button" onClick={close} className="text-[#1A2A40] hover:text-[#C67D4E] transition-colors">
                         <XMark />
                       </button>
                     </div>
@@ -68,9 +73,9 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                           <li key={name}>
                             <LocalizedClientLink
                               href={href}
-                              className="text-3xl leading-10 hover:text-ui-fg-disabled"
+                              className="text-2xl leading-10 text-[#1A2A40] hover:text-[#C67D4E] transition-colors font-medium"
                               onClick={close}
-                              data-testid={`${name.toLowerCase()}-link`}
+                              data-testid={`${name.toLowerCase().replace(' ', '-')}-link`}
                             >
                               {name}
                             </LocalizedClientLink>
@@ -97,7 +102,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                           )}
                         />
                       </div>
-                      <Text className="flex justify-between txt-compact-small">
+                      <Text className="flex justify-between txt-compact-small text-[#1A2A40]">
                         © {new Date().getFullYear()} Peptiva. All rights
                         reserved.
                       </Text>

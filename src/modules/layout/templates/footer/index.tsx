@@ -1,4 +1,5 @@
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
+import Image from "next/image"
 
 export default async function Footer() {
   return (
@@ -8,7 +9,15 @@ export default async function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
           {/* Column 1 - Brand */}
           <div className="flex flex-col gap-4">
-            <h3 className="text-xl font-bold text-white">Peptiva</h3>
+            <LocalizedClientLink href="/" className="block">
+              <Image
+                src="/images/peptiva-logo-medium.png"
+                alt="Peptiva"
+                width={507}
+                height={120}
+                className="h-12 w-auto brightness-0 invert"
+              />
+            </LocalizedClientLink>
             <p className="text-sm text-gray-300">
               Research-grade peptides for European scientists
             </p>
