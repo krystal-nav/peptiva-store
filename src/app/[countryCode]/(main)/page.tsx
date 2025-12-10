@@ -1,6 +1,7 @@
 import { Metadata } from "next"
 
 import AboutPeptiva from "@modules/home/components/about-peptiva"
+import FAQSection from "@modules/home/components/faq-section"
 import FeaturedProducts from "@modules/home/components/featured-products"
 import FeaturedProductsSection from "@modules/home/components/featured-products-section"
 import Hero from "@modules/home/components/hero"
@@ -39,6 +40,7 @@ export default async function Home(props: {
       <FeaturedProductsSection region={region} countryCode={countryCode} />
       <WhatSetsUsApart />
       <AboutPeptiva />
+      <FAQSection />
       <div className="py-12">
         <ul className="flex flex-col gap-x-6">
           <FeaturedProducts collections={collections} region={region} />
