@@ -8,7 +8,7 @@ import Hero from "@modules/home/components/hero"
 import TrustBadges from "@modules/home/components/trust-badges"
 import WhatSetsUsApart from "@modules/home/components/what-sets-us-apart"
 import { listCollections } from "@lib/data/collections"
-import { getRegion } from "@lib/data/regions"
+import { getEURegion } from "@lib/data/regions"
 
 export const metadata: Metadata = {
   title: "Peptiva - Research-Grade Peptides | EU Delivery",
@@ -16,14 +16,10 @@ export const metadata: Metadata = {
     "Premium quality peptides for scientific research. Third-party tested, EU-wide delivery.",
 }
 
-export default async function Home(props: {
-  params: Promise<{ countryCode: string }>
-}) {
-  const params = await props.params
-
-  const { countryCode } = params
-
-  const region = await getRegion(countryCode)
+export default async function Home() {
+  // Default to EU region (no country code needed)
+  const region = await getEURegion()
+  const countryCode = "de" // Default EU country code
 
   const { collections } = await listCollections({
     fields: "id, handle, title",

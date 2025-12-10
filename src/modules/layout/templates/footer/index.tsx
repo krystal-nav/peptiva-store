@@ -1,155 +1,153 @@
-import { listCategories } from "@lib/data/categories"
-import { listCollections } from "@lib/data/collections"
-import { Text, clx } from "@medusajs/ui"
-
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
-import MedusaCTA from "@modules/layout/components/medusa-cta"
 
 export default async function Footer() {
-  const { collections } = await listCollections({
-    fields: "*products",
-  })
-  const productCategories = await listCategories()
-
   return (
-    <footer className="border-t border-ui-border-base w-full">
-      <div className="content-container flex flex-col w-full">
-        <div className="flex flex-col gap-y-6 xsmall:flex-row items-start justify-between py-40">
-          <div>
-            <LocalizedClientLink
-              href="/"
-              className="txt-compact-xlarge-plus text-ui-fg-subtle hover:text-ui-fg-base uppercase"
+    <footer className="bg-midnight border-t border-midnight-dark w-full">
+      <div className="content-container">
+        {/* Main Footer Content - 4 Columns */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-12">
+          {/* Column 1 - Brand */}
+          <div className="flex flex-col gap-4">
+            <h3 className="text-xl font-bold text-white">Peptiva</h3>
+            <p className="text-sm text-gray-300">
+              Research-grade peptides for European scientists
+            </p>
+            <a 
+              href="mailto:info@peptiva.eu" 
+              className="text-sm text-gray-300 hover:text-copper transition-colors"
             >
-              Peptiva
-            </LocalizedClientLink>
+              info@peptiva.eu
+            </a>
           </div>
-          <div className="text-small-regular gap-10 md:gap-x-16 grid grid-cols-2 sm:grid-cols-3">
-            {productCategories && productCategories?.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Categories
-                </span>
-                <ul
-                  className="grid grid-cols-1 gap-2"
-                  data-testid="footer-categories"
-                >
-                  {productCategories?.slice(0, 6).map((c) => {
-                    if (c.parent_category) {
-                      return
-                    }
 
-                    const children =
-                      c.category_children?.map((child) => ({
-                        name: child.name,
-                        handle: child.handle,
-                        id: child.id,
-                      })) || null
-
-                    return (
-                      <li
-                        className="flex flex-col gap-2 text-ui-fg-subtle txt-small"
-                        key={c.id}
-                      >
-                        <LocalizedClientLink
-                          className={clx(
-                            "hover:text-ui-fg-base",
-                            children && "txt-small-plus"
-                          )}
-                          href={`/categories/${c.handle}`}
-                          data-testid="category-link"
-                        >
-                          {c.name}
-                        </LocalizedClientLink>
-                        {children && (
-                          <ul className="grid grid-cols-1 ml-3 gap-2">
-                            {children &&
-                              children.map((child) => (
-                                <li key={child.id}>
-                                  <LocalizedClientLink
-                                    className="hover:text-ui-fg-base"
-                                    href={`/categories/${child.handle}`}
-                                    data-testid="category-link"
-                                  >
-                                    {child.name}
-                                  </LocalizedClientLink>
-                                </li>
-                              ))}
-                          </ul>
-                        )}
-                      </li>
-                    )
-                  })}
-                </ul>
-              </div>
-            )}
-            {collections && collections.length > 0 && (
-              <div className="flex flex-col gap-y-2">
-                <span className="txt-small-plus txt-ui-fg-base">
-                  Collections
-                </span>
-                <ul
-                  className={clx(
-                    "grid grid-cols-1 gap-2 text-ui-fg-subtle txt-small",
-                    {
-                      "grid-cols-2": (collections?.length || 0) > 3,
-                    }
-                  )}
+          {/* Column 2 - Shop */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-white font-semibold mb-2">Shop</h3>
+            <ul className="flex flex-col gap-2">
+              <li>
+                <LocalizedClientLink
+                  href="/store"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
                 >
-                  {collections?.slice(0, 6).map((c) => (
-                    <li key={c.id}>
-                      <LocalizedClientLink
-                        className="hover:text-ui-fg-base"
-                        href={`/collections/${c.handle}`}
-                      >
-                        {c.title}
-                      </LocalizedClientLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            <div className="flex flex-col gap-y-2">
-              <span className="txt-small-plus txt-ui-fg-base">Medusa</span>
-              <ul className="grid grid-cols-1 gap-y-2 text-ui-fg-subtle txt-small">
-                <li>
-                  <a
-                    href="https://github.com/medusajs"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://docs.medusajs.com"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Documentation
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/medusajs/nextjs-starter-medusa"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="hover:text-ui-fg-base"
-                  >
-                    Source code
-                  </a>
-                </li>
-              </ul>
-            </div>
+                  All Products
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/products/bpc-157"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  BPC-157
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/products/tb-500"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  TB-500
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/products/retatrutide"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  Retatrutide
+                </LocalizedClientLink>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 3 - Information */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-white font-semibold mb-2">Information</h3>
+            <ul className="flex flex-col gap-2">
+              <li>
+                <LocalizedClientLink
+                  href="/about"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  About Us
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/faq"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  FAQ
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/shipping-returns"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  Shipping & Returns
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/contact"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  Contact
+                </LocalizedClientLink>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4 - Legal */}
+          <div className="flex flex-col gap-3">
+            <h3 className="text-white font-semibold mb-2">Legal</h3>
+            <ul className="flex flex-col gap-2">
+              <li>
+                <LocalizedClientLink
+                  href="/terms-conditions"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  Terms & Conditions
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/privacy-policy"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  Privacy Policy
+                </LocalizedClientLink>
+              </li>
+              <li>
+                <LocalizedClientLink
+                  href="/research-disclaimer"
+                  className="text-sm text-gray-400 hover:text-copper transition-colors"
+                >
+                  Research Disclaimer
+                </LocalizedClientLink>
+              </li>
+            </ul>
           </div>
         </div>
-        <div className="flex w-full mb-16 justify-between text-ui-fg-muted">
-          <Text className="txt-compact-small">
-            © {new Date().getFullYear()} Peptiva. All rights reserved.
-          </Text>
-          <MedusaCTA />
+
+        {/* Disclaimer Section */}
+        <div className="border-t border-midnight-light py-6">
+          <p className="text-xs text-gray-400 leading-relaxed">
+            All products sold by Peptiva are intended strictly for in vitro research and laboratory use only. 
+            Products are not for human or animal consumption, nor for diagnostic, therapeutic, or medicinal purposes. 
+            The statements made on this website have not been evaluated by the European Medicines Agency (EMA) or 
+            any EU member state regulatory authority. Products are not intended to diagnose, treat, cure, or prevent 
+            any disease. Peptiva is a research chemical supplier and is not a pharmacy, compounding facility, or 
+            manufacturer of medicinal products as defined under Directive 2001/83/EC. By placing an order, you 
+            confirm that you are a qualified researcher or represent an institution conducting legitimate scientific research.
+          </p>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-midnight-light py-6">
+          <div className="flex justify-center items-center text-sm text-gray-400">
+            <p>© 2025 Peptiva. All rights reserved.</p>
+          </div>
         </div>
       </div>
     </footer>

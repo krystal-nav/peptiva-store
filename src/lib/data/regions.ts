@@ -37,10 +37,14 @@ export const retrieveRegion = async (id: string) => {
 
 const regionMap = new Map<string, HttpTypes.StoreRegion>()
 
-export const getRegion = async (countryCode: string) => {
+export const getRegion = async (countryCode?: string) => {
   try {
-    if (regionMap.has(countryCode)) {
-      return regionMap.get(countryCode)
+    // Default to DE (Germany) for EU region
+    const defaultCountryCode = "de"
+    const targetCountryCode = countryCode || defaultCountryCode
+    
+    if (regionMap.has(targetCountryCode)) {
+      return regionMap.get(targetCountryCode)
     }
 
     const regions = await listRegions()
@@ -55,12 +59,18 @@ export const getRegion = async (countryCode: string) => {
       })
     })
 
-    const region = countryCode
-      ? regionMap.get(countryCode)
-      : regionMap.get("us")
+    // Try to get the specified region, fallback to DE, then any available region
+    const region = regionMap.get(targetCountryCode) || 
+                   regionMap.get(defaultCountryCode) ||
+                   regions[0] // fallback to first available region
 
     return region
   } catch (e: any) {
     return null
   }
+}
+
+// Helper function to get EU region directly
+export const getEURegion = async () => {
+  return getRegion("de") // Use Germany as EU representative
 }
