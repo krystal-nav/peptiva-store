@@ -20,6 +20,7 @@ const config = {
         },
         cream: "#FAF8F5",
         "warm-gray": "#F0EBE5",
+        "body-gray": "#3D4F63",
       },
       fontFamily: {
         sans: ["Archivo", "system-ui", "sans-serif"],
