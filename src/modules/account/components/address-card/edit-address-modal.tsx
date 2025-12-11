@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, useActionState } from "react"
-import { PencilSquare as Edit, Trash } from "@medusajs/icons"
+import { Edit2, Trash2 } from "lucide-react"
 import { Button, Heading, Text, clx } from "@medusajs/ui"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
@@ -107,7 +107,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
             onClick={open}
             data-testid="address-edit-button"
           >
-            <Edit />
+            <Edit2 size={16} />
             Edit
           </button>
           <button
@@ -115,7 +115,7 @@ const EditAddress: React.FC<EditAddressProps> = ({
             onClick={removeAddress}
             data-testid="address-delete-button"
           >
-            {removing ? <Spinner /> : <Trash />}
+            {removing ? <Spinner /> : <Trash2 size={16} />}
             Remove
           </button>
         </div>

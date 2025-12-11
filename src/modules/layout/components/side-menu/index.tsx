@@ -1,7 +1,7 @@
 "use client"
 
 import { Popover, PopoverPanel, Transition } from "@headlessui/react"
-import { ArrowRightMini, XMark } from "@medusajs/icons"
+import { ArrowRight, X } from "lucide-react"
 import { Text, clx, useToggleState } from "@medusajs/ui"
 import { Fragment } from "react"
 
@@ -10,6 +10,7 @@ import CountrySelect from "../country-select"
 import { HttpTypes } from "@medusajs/types"
 
 const SideMenuItems = {
+  "Search": "/store?q=",
   "All Peptides": "/store",
   "About": "/about",
   "Contact": "/contact",
@@ -64,7 +65,7 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                   >
                     <div className="flex justify-end" id="xmark">
                       <button data-testid="close-menu-button" onClick={close} className="text-[#1A2A40] hover:text-[#C67D4E] transition-colors">
-                        <XMark />
+                        <X size={20} />
                       </button>
                     </div>
                     <ul className="flex flex-col gap-6 items-start justify-start">
@@ -95,11 +96,12 @@ const SideMenu = ({ regions }: { regions: HttpTypes.StoreRegion[] | null }) => {
                             regions={regions}
                           />
                         )}
-                        <ArrowRightMini
+                        <ArrowRight
                           className={clx(
                             "transition-transform duration-150",
                             toggleState.state ? "-rotate-90" : ""
                           )}
+                          size={16}
                         />
                       </div>
                       <Text className="flex justify-between txt-compact-small text-[#1A2A40]">

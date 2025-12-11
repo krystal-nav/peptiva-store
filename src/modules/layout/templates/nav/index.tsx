@@ -1,11 +1,12 @@
 import { Suspense } from "react"
-import { User, ShoppingCart } from "@medusajs/icons"
+import { User, ShoppingCart } from "lucide-react"
 import Image from "next/image"
 
 import { listRegions } from "@lib/data/regions"
 import { StoreRegion } from "@medusajs/types"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 import CartButton from "@modules/layout/components/cart-button"
+import SearchComponent from "@modules/layout/components/search"
 import SideMenu from "@modules/layout/components/side-menu"
 
 export default async function Nav() {
@@ -63,14 +64,16 @@ export default async function Nav() {
             </LocalizedClientLink>
           </div>
 
-          {/* Right: Account and Cart Icons */}
+          {/* Right: Search, Account and Cart Icons */}
           <div className="flex items-center gap-x-4 h-full flex-1 basis-0 justify-end">
+            <SearchComponent />
+            
             <LocalizedClientLink
               className="flex items-center text-[#1A2A40] hover:text-[#C67D4E] transition-colors duration-200"
               href="/account"
               data-testid="nav-account-link"
             >
-              <User />
+              <User size={20} />
             </LocalizedClientLink>
             
             <Suspense
@@ -80,7 +83,7 @@ export default async function Nav() {
                   href="/cart"
                   data-testid="nav-cart-link"
                 >
-                  <ShoppingCart />
+                  <ShoppingCart size={20} />
                   <span className="ml-1">(0)</span>
                 </LocalizedClientLink>
               }

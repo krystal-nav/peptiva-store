@@ -1,5 +1,5 @@
 import { deleteLineItem } from "@lib/data/cart"
-import { Spinner, Trash } from "@medusajs/icons"
+import { Loader2, Trash2 } from "lucide-react"
 import { clx } from "@medusajs/ui"
 import { useState } from "react"
 
@@ -32,7 +32,7 @@ const DeleteButton = ({
         className="flex gap-x-1 text-ui-fg-subtle hover:text-ui-fg-base cursor-pointer"
         onClick={() => handleDelete(id)}
       >
-        {isDeleting ? <Spinner className="animate-spin" /> : <Trash />}
+        {isDeleting ? <Loader2 className="animate-spin" size={16} /> : <Trash2 size={16} />}
         <span>{children}</span>
       </button>
     </div>

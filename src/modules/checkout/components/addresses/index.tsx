@@ -2,7 +2,7 @@
 
 import { setAddresses } from "@lib/data/cart"
 import compareAddresses from "@lib/util/compare-addresses"
-import { CheckCircleSolid } from "@medusajs/icons"
+import { CheckCircle } from "lucide-react"
 import { HttpTypes } from "@medusajs/types"
 import { Heading, Text, useToggleState } from "@medusajs/ui"
 import Divider from "@modules/common/components/divider"
@@ -47,7 +47,7 @@ const Addresses = ({
           className="flex flex-row text-3xl-regular gap-x-2 items-baseline"
         >
           Shipping Address
-          {!isOpen && <CheckCircleSolid />}
+          {!isOpen && <CheckCircle size={20} />}
         </Heading>
         {!isOpen && cart?.shipping_address && (
           <Text>

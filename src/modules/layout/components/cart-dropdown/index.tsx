@@ -6,7 +6,7 @@ import {
   PopoverPanel,
   Transition,
 } from "@headlessui/react"
-import { ShoppingCart } from "@medusajs/icons"
+import { ShoppingCart } from "lucide-react"
 import { convertToLocale } from "@lib/util/money"
 import { HttpTypes } from "@medusajs/types"
 import { Button } from "@medusajs/ui"
@@ -87,7 +87,7 @@ const CartDropdown = ({
             href="/cart"
             data-testid="nav-cart-link"
           >
-            <ShoppingCart />
+            <ShoppingCart size={20} />
             <span className="ml-1">({totalItems})</span>
           </LocalizedClientLink>
         </PopoverButton>

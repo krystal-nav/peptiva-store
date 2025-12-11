@@ -1,43 +1,70 @@
 import { Suspense } from "react"
-
-import SkeletonProductGrid from "@modules/skeletons/templates/skeleton-product-grid"
-import RefinementList from "@modules/store/components/refinement-list"
+import { listProductsWithSort } from "@lib/data/products"
+import { listCategories } from "@lib/data/categories"
+import { getRegion } from "@lib/data/regions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
+import StoreTemplate from "../components/store-template"
 
-import PaginatedProducts from "./paginated-products"
-
-const StoreTemplate = ({
+async function StoreTemplateWrapper({
   sortBy,
   page,
   countryCode,
+  query,
 }: {
   sortBy?: SortOptions
   page?: string
   countryCode: string
-}) => {
+  query?: string
+}) {
   const pageNumber = page ? parseInt(page) : 1
   const sort = sortBy || "created_at"
 
+  // Fetch region
+  const region = await getRegion(countryCode)
+  if (!region) {
+    return <div>Region not found</div>
+  }
+
+  // Fetch products
+  const queryParams: any = {
+    limit: 100, // Get all products for client-side filtering
+  }
+
+  if (sort === "created_at") {
+    queryParams["order"] = "created_at"
+  }
+
+  if (query) {
+    queryParams["title"] = query
+  }
+
+  const {
+    response: { products },
+  } = await listProductsWithSort({
+    page: 1,
+    queryParams,
+    sortBy: sort,
+    countryCode,
+  })
+
+  // Fetch categories
+  const categories = await listCategories().catch(() => [])
+  
+  // Transform categories to match our interface
+  const transformedCategories = categories.map(cat => ({
+    id: cat.id,
+    name: cat.name,
+    handle: cat.handle
+  }))
+
   return (
-    <div
-      className="flex flex-col small:flex-row small:items-start py-6 content-container"
-      data-testid="category-container"
-    >
-      <RefinementList sortBy={sort} />
-      <div className="w-full">
-        <div className="mb-8 text-2xl-semi">
-          <h1 data-testid="store-page-title">All products</h1>
-        </div>
-        <Suspense fallback={<SkeletonProductGrid />}>
-          <PaginatedProducts
-            sortBy={sort}
-            page={pageNumber}
-            countryCode={countryCode}
-          />
-        </Suspense>
-      </div>
-    </div>
+    <StoreTemplate
+      products={products}
+      region={region}
+      categories={transformedCategories}
+      isLoading={false}
+    />
   )
 }
 
-export default StoreTemplate
+export default StoreTemplateWrapper

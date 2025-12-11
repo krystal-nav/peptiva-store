@@ -1,6 +1,6 @@
 "use client"
 
-import { Plus } from "@medusajs/icons"
+import { Plus } from "lucide-react"
 import { Button, Heading } from "@medusajs/ui"
 import { useEffect, useState, useActionState } from "react"
 
@@ -54,7 +54,7 @@ const AddAddress = ({
         data-testid="add-address-button"
       >
         <span className="text-base-semi">New address</span>
-        <Plus />
+        <Plus size={20} />
       </button>
 
       <Modal isOpen={state} close={close} data-testid="add-address-modal">

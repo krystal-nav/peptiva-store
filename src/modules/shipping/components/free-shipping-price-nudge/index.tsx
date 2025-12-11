@@ -1,7 +1,7 @@
 "use client"
 
 import { convertToLocale } from "@lib/util/money"
-import { CheckCircleSolid, XMark } from "@medusajs/icons"
+import { CheckCircle, X } from "lucide-react"
 import {
   HttpTypes,
   StoreCart,
@@ -148,7 +148,7 @@ function FreeShippingInline({
           <div>
             {price.target_reached ? (
               <div className="flex items-center gap-1.5">
-                <CheckCircleSolid className="text-green-500 inline-block" />{" "}
+                <CheckCircle size={16} className="text-green-500 inline-block" />{" "}
                 Free Shipping unlocked!
               </div>
             ) : (
@@ -213,7 +213,7 @@ function FreeShippingPopup({
           className="rounded-full bg-neutral-900 shadow-none outline-none border-none text-[15px] p-2"
           onClick={() => setIsClosed(true)}
         >
-          <XMark />
+          <X size={16} />
         </Button>
       </div>
 
@@ -224,7 +224,7 @@ function FreeShippingPopup({
               <div>
                 {price.target_reached ? (
                   <div className="flex items-center gap-1.5">
-                    <CheckCircleSolid className="text-green-500 inline-block" />{" "}
+                    <CheckCircle size={16} className="text-green-500 inline-block" />{" "}
                     Free Shipping unlocked!
                   </div>
                 ) : (

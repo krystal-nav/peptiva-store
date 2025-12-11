@@ -3,7 +3,7 @@
 import { RadioGroup } from "@headlessui/react"
 import { isStripeLike, paymentInfoMap } from "@lib/constants"
 import { initiatePaymentSession } from "@lib/data/cart"
-import { CheckCircleSolid, CreditCard } from "@medusajs/icons"
+import { CheckCircle, CreditCard } from "lucide-react"
 import { Button, Container, Heading, Text, clx } from "@medusajs/ui"
 import ErrorMessage from "@modules/checkout/components/error-message"
 import PaymentContainer, {
@@ -118,7 +118,7 @@ const Payment = ({
           )}
         >
           Payment
-          {!isOpen && paymentReady && <CheckCircleSolid />}
+          {!isOpen && paymentReady && <CheckCircle size={16} />}
         </Heading>
         {!isOpen && paymentReady && (
           <Text>
@@ -225,7 +225,7 @@ const Payment = ({
                 >
                   <Container className="flex items-center h-7 w-fit p-2 bg-ui-button-neutral-hover">
                     {paymentInfoMap[selectedPaymentMethod]?.icon || (
-                      <CreditCard />
+                      <CreditCard size={16} />
                     )}
                   </Container>
                   <Text>

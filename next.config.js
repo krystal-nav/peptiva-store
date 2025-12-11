@@ -46,6 +46,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "s3.eu-central-1.amazonaws.com",
       },
+      {
+        protocol: "https",
+        hostname: "peptiva.medusajs.app",
+      },
       ...(S3_HOSTNAME && S3_PATHNAME
         ? [
             {

@@ -1,4 +1,4 @@
-import { CheckCircle } from "@medusajs/icons"
+import { CheckCircle } from "lucide-react"
 import LocalizedClientLink from "@modules/common/components/localized-client-link"
 
 const Hero = () => {
