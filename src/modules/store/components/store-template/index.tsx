@@ -12,6 +12,7 @@ interface StoreTemplateProps {
   products: HttpTypes.StoreProduct[]
   region: HttpTypes.StoreRegion
   categories: Category[]
+  collections?: HttpTypes.StoreCollection[]
   isLoading?: boolean
 }
 
@@ -19,6 +20,7 @@ const StoreTemplate = ({
   products, 
   region, 
   categories, 
+  collections = [],
   isLoading = false 
 }: StoreTemplateProps) => {
   const router = useRouter()
@@ -64,19 +66,14 @@ const StoreTemplate = ({
       if (!matchesTitle && !matchesCategory) return false
     }
 
-    // Category filter - map category pills to product handles
+    // Category filter - use actual collection membership
     if (selectedCategories.length > 0) {
-      const productCategoryMap: Record<string, string[]> = {
-        'regeneration': ['bpc-157', 'tb-500'],
-        'weight-management': ['retatrutide'],
-        'anti-aging': ['ghk-cu'],
-        'sexual-health': ['pt-141'],
-        'accessories': ['bacteriostatic-water'],
-      }
-      
-      const hasMatchingCategory = selectedCategories.some(catId => {
-        const productsInCategory = productCategoryMap[catId] || []
-        return productsInCategory.includes(product.handle)
+      const hasMatchingCategory = selectedCategories.some(selectedCategoryId => {
+        // Check if product belongs to any of the selected collections
+        return product.collection && (
+          product.collection.id === selectedCategoryId || 
+          product.collection.handle === selectedCategoryId
+        )
       })
       
       if (!hasMatchingCategory) return false
@@ -156,6 +153,7 @@ const StoreTemplate = ({
         selectedCategories={selectedCategories}
         onCategoryChange={setSelectedCategories}
         categories={categories}
+        collections={collections}
       />
 
       {/* Main Content */}

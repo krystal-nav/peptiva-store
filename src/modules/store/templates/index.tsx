@@ -1,6 +1,7 @@
 import { Suspense } from "react"
 import { listProductsWithSort } from "@lib/data/products"
 import { listCategories } from "@lib/data/categories"
+import { listCollections } from "@lib/data/collections"
 import { getRegion } from "@lib/data/regions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import StoreTemplate from "../components/store-template"
@@ -47,21 +48,25 @@ async function StoreTemplateWrapper({
     countryCode,
   })
 
-  // Fetch categories
-  const categories = await listCategories().catch(() => [])
+  // Fetch collections (for filtering)
+  const { collections } = await listCollections().catch(() => ({ collections: [] }))
   
-  // Transform categories to match our interface
-  const transformedCategories = categories.map(cat => ({
-    id: cat.id,
-    name: cat.name,
-    handle: cat.handle
+  // Transform collections to match our interface
+  const transformedCategories = collections.map(collection => ({
+    id: collection.id,
+    name: collection.title,
+    handle: collection.handle
   }))
+
+  // Fetch categories (legacy - keeping for compatibility)
+  const categories = await listCategories().catch(() => [])
 
   return (
     <StoreTemplate
       products={products}
       region={region}
       categories={transformedCategories}
+      collections={collections}
       isLoading={false}
     />
   )

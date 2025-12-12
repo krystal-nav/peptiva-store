@@ -15,6 +15,7 @@ interface StoreHeaderProps {
   selectedCategories: string[]
   onCategoryChange: (categories: string[]) => void
   categories: Array<{ id: string; name: string; handle: string }>
+  collections?: Array<{ id: string; title: string; handle: string }>
 }
 
 const StoreHeader = ({
@@ -28,6 +29,7 @@ const StoreHeader = ({
   selectedCategories,
   onCategoryChange,
   categories,
+  collections = [],
 }: StoreHeaderProps) => {
   const [localSearchQuery, setLocalSearchQuery] = useState(searchQuery)
 
@@ -75,23 +77,17 @@ const StoreHeader = ({
           All Products
         </button>
         
-        {/* Static category pills for now - replace with dynamic ones later */}
-        {[
-          { id: 'regeneration', name: 'Regeneration' },
-          { id: 'weight-management', name: 'Weight Management' },
-          { id: 'anti-aging', name: 'Anti-Aging' },
-          { id: 'sexual-health', name: 'Sexual Health' },
-          { id: 'accessories', name: 'Accessories' },
-        ].map((category) => {
-          const isActive = selectedCategories.includes(category.id)
+        {/* Dynamic collection pills */}
+        {collections.map((collection) => {
+          const isActive = selectedCategories.includes(collection.handle)
           return (
             <button 
-              key={category.id}
+              key={collection.id}
               onClick={() => {
                 if (isActive) {
-                  onCategoryChange(selectedCategories.filter(id => id !== category.id))
+                  onCategoryChange(selectedCategories.filter(handle => handle !== collection.handle))
                 } else {
-                  onCategoryChange([...selectedCategories, category.id])
+                  onCategoryChange([...selectedCategories, collection.handle])
                 }
               }}
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
@@ -100,7 +96,7 @@ const StoreHeader = ({
                   : 'bg-white text-[#3D4F63] shadow-md hover:shadow-lg hover:bg-[#F0EBE5]'
               }`}
             >
-              {category.name}
+              {collection.title}
             </button>
           )
         })}
